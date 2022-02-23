@@ -1,0 +1,16 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+#aquarium {
+    background: linear-gradient(rgb(147, 172, 230),rgb(52, 25, 206));
+    margin: 0;
+    height: 100%;
+}
+
+#Fish {
+    margin: 0;
+    height: 100%;
+}
+
