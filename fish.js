@@ -39,22 +39,42 @@ class Boid {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");
         this.image = new Image(50, 50);
-        this.image.src = 'images/shrimp.png'
+        this.image.src = 'images/shrimp.png';
         this.destinationX = Math.floor(Math.random() * canvas.width);
         this.destinationY = Math.floor(Math.random() * canvas.height);
-
-        this.interval = Math.floor(Math.random() * 500);
+        this.interval = Math.floor(Math.random() * 400);
+        this.faceLeft = true;
 
     }
 
     draw() {
-        this.ctx.drawImage(this.image, this.x, this.y);
+        this.ctx.drawImage(this.image, this.x, this.y, this.image.naturalWidth, this.image.naturalHeight);
     }
-    
+
+    setImage(newImage) {
+        if (this.faceLeft) {
+            this.image.src = 'images/' + newImage + '.png';
+        } else {
+            this.image.src = 'images/' + newImage + 'R.png';
+        }
+    }
+
     moveTowards(x, y) {
+        if (x < this.x) {
+            this.faceLeft = true;
+        } else {
+            this.faceLeft = false;
+        }
         let speed = 100;
-        this.x += -(this.x - x)/speed;
-        this.y += -(this.y - y)/speed;
+        let changeXBy = Math.floor(-(this.x - x)/speed);
+        let changeYBy = Math.floor(-(this.y - y)/speed);
+        this.x += changeXBy;
+        this.y += changeYBy;
+        if (changeXBy == 0 && changeYBy == 0) {
+            this.setImage("shrimp");
+        } else {
+            this.setImage("shrimpSwim");
+        }
     }
 
     findDistance(boid) {
@@ -90,7 +110,7 @@ function genRand(boidArr) {
 
 
 function handleBoids(canvas, boidArr){
-    if (num == 501) {
+    if (num == 401) {
         // random = genRand();
         num = 0;
     }
