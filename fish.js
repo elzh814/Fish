@@ -8,8 +8,8 @@ let num = 0;
 let arrLength = 50;
 
 const testArr = [];
-const randomDesX = [];
-const randomDesY = [];
+// const randomDesX = [];
+// const randomDesY = [];
 
 const mouse = {
     x: undefined,
@@ -21,7 +21,7 @@ const canvasMouse = {
     y: undefined,
 }
 
-let random = genRand();
+// let random = genRand();
 
 function getCanvasMouse() {
     let canvasRect = canvas.getBoundingClientRect();
@@ -40,10 +40,11 @@ class Boid {
         this.ctx = this.canvas.getContext("2d");
         this.image = new Image(50, 50);
         this.image.src = 'images/shrimp.png'
-        this.destination={
-            x: undefined,
-            y: undefined,
-        }
+        this.destinationX = Math.floor(Math.random() * canvas.width);
+        this.destinationY = Math.floor(Math.random() * canvas.height);
+
+        this.interval = Math.floor(Math.random() * 500);
+
     }
 
     draw() {
@@ -68,12 +69,6 @@ class Boid {
             this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     }
-
-    moveRandom() {
-        let randomX = Math.floor(Math.random() * 1000);
-        let randomY = Math.floor(Math.random() * 1000);
-        this.moveTowards(randomX, randomY);
-    }
 }
 
 
@@ -86,51 +81,33 @@ for (let i = 0; i < arrLength; i++) {
     testArr[i].draw();
 }
 
-function genRand() {
+function genRand(boidArr) {
     for (let i = 0; i < arrLength; i++) {
-        var random = {
-            x: Math.floor(Math.random() * 1500),
-            y: Math.floor(Math.random() * 1000),
-            num: Math.floor(Math.random() * 1000),
-            indexL: Math.floor(Math.random() * arrLength),
-            indexR: Math.floor(Math.random * (arrLength/2) + (arrLength/2)),
-        }
-        randomDesX[i] = random.x;
-        randomDesY[i] = random.y;
+        boidArr[i].destinationX = Math.floor(Math.random() * canvas.width);
+        boidArr[i].destinationY = Math.floor(Math.random() * canvas.height);
     }
-    return random;
 };
 
 
 function handleBoids(canvas, boidArr){
-    if (num == 250) {
-        random = genRand();
+    if (num == 501) {
+        // random = genRand();
         num = 0;
     }
     num +=1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let i = 0; i < testArr.length; i++) {
-        // let random = {
-        //     x: Math.floor(Math.random() * 1200 - 100),
-        //     y: Math.floor(Math.random() * 1200 - 100)
-        // }
-        boidArr[i].moveTowards(randomDesX[i], randomDesY[i]);
+    for(let i = 0; i < boidArr.length; i++) {
+        if (num == boidArr[i].interval) {
+            boidArr[i].destinationX = Math.floor(Math.random() * canvas.width);
+            boidArr[i].destinationY = Math.floor(Math.random() * canvas.height);
+        }
+        boidArr[i].moveTowards(boidArr[i].destinationX, boidArr[i].destinationY);
         boidArr[i].draw();
     }
 }
 
-// canvas.addEventListener('mousemove', function(event){
-//     mouse.x = event.x;
-//     mouse.y = event.y;
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//     for(let i = 0; i < testArr.length; i++) {
-//         testArr[i].moveTowards(mouse.x, mouse.y);
-//         testArr[i].draw();
-//     }
-// });
-
 canvas.addEventListener('click', function(){
-    genRand();
+    genRand(testArr);
 });
 
 function animate() {
@@ -138,7 +115,7 @@ function animate() {
     window.requestAnimationFrame(animate);
 }
 
-genRand();
+// genRand();
 animate();
 
 //TESTING PURPOSES
