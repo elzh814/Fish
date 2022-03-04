@@ -4,7 +4,7 @@ html, body {
 }
 
 #aquarium {
-    background: linear-gradient(rgb(147, 172, 230),rgb(52, 25, 206));
+    background: linear-gradient(rgb(54, 208, 255),rgb(52, 25, 206));
     margin: 0;
     height: 100%;
 }
