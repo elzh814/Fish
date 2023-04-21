@@ -1,16 +1,66 @@
 html, body {
     margin: 0;
     height: 100%;
+    width: 100%;
+    padding: none;
+    overflow: hidden;
+
+    background: linear-gradient(rgb(183, 238, 255),rgb(184, 172, 255));
+    z-index: -1;
 }
 
-#aquarium {
-    background: linear-gradient(rgb(54, 208, 255),rgb(52, 25, 206));
-    margin: 0;
-    height: 100%;
+.frame {
+    position: fixed;
+    aspect-ratio: 16/9;
+    width: 80%;
+    height: auto;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* border: 3px solid; */
+    font-size: 1.5vw;
+    /* border-radius: 5px; */
+    z-index: 10;
+
+    min-width: 500px;
 }
 
-#Fish {
-    margin: 0;
-    height: 100%;
+#tank {
+    background-image: url('tank.gif');
+    background-size:contain;
+    image-rendering: pixelated;
+
+    z-index: 1;
 }
 
+#FishBack {
+    /* background-color: aqua; */
+    z-index: 8;
+}
+
+#glass {
+    background-image: url('images/glass.png');
+    background-size: contain;
+    image-rendering: pixelated;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#rocks {
+    background-image: url('images/rocks.png');
+    background-repeat: none;
+    background-size: cover;
+    z-index: 9;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+canvas {
+    position: fixed;
+    image-rendering: pixelated;
+}
+
+#to-load {
+    display: none;
+}
