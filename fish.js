@@ -17,7 +17,7 @@ backCanvasAq.style.backgroundColor = "none";
 backCtxAq.imageSmoothingEnabled = false;
 
 let num = 0;
-let arrLength = 10;
+let arrLength = 5;
 var testArr = [];
 var backArr = [];
 const testPartArr = [];
@@ -76,17 +76,26 @@ class Boid {
         this.y = y;
         // this.image = new Image(50, 50);
         // this.image.src = 'images/shrimp.png';
-        this.image = document.getElementById("shrimp");
+        this.image = document.getElementById("shrimpIdle");
         this.destinationX = Math.floor(Math.random() * canvas.width);
-        this.destinationY = Math.floor(Math.random() * (canvas.height - 10));
+        this.destinationY = Math.floor(Math.random() * (canvas.height - Math.ceil(canvas.height / 20)));
         this.interval = Math.floor(Math.random() * 400);
         this.faceLeft = true;
+        this.idle = true;
+        this.currFrame = 1;
     }
 
     draw(ctx, size) {
         // console.log(this.image)
         // ctx.drawImage(this.image, this.x, this.y, this.image.naturalWidth, this.image.naturalHeight);
-        ctx.drawImage(this.image, this.x, this.y, size, size);
+        ctx.drawImage(this.image, this.x, this.y, size, size*2);
+        // if (this.idle) {
+        //     ctx.drawImage(this.image, (this.image.naturalWidth/2) * this.currFrame, 0, (this.image.naturalWidth/2), this.image.naturalHeight, this.x, this.y, size, size);
+        //     this.currFrame++;
+        //     if(this.currFrame == 2) {
+        //         this.currFrame = 1;
+        //     }
+        // }
     }
 
     setImage(newImage) {
@@ -175,7 +184,7 @@ function handleBoids(canvas, ctx, boidArr) {
     for (let i = 0; i < boidArr.length; i++) {
         if (num == boidArr[i].interval) {
             boidArr[i].destinationX = Math.floor(Math.random() * canvas.width);
-            boidArr[i].destinationY = Math.floor(Math.random() * (canvas.height - 10));
+            boidArr[i].destinationY = Math.floor(Math.random() * (canvas.height - Math.ceil(canvas.height / 20)));
         }
         if (existsFood) {
             boidArr[i].eat(food);
@@ -214,21 +223,19 @@ function start() {
         if (i >= arrLength) {
             let random = {
                 x: Math.floor(Math.random() * backCanvasAq.width),
-                y: Math.floor(Math.random() * (backCanvasAq.height - 10)),
+                y: Math.floor(Math.random() * (backCanvasAq.height - Math.ceil(backCanvasAq.height / 20))),
             }
             backArr.push(new Boid(random.x, random.y, backCanvasAq))
         } else {
             let random = {
                 x: Math.floor(Math.random() * canvasAq.width),
-                y: Math.floor(Math.random() * (canvasAq.height - 10)),
+                y: Math.floor(Math.random() * (canvasAq.height - Math.ceil(canvasAq.height / 20))),
             }
             testArr.push(new Boid(random.x, random.y, canvasAq));
         }
         // testArr.push(new Boid(random.x, random.y));
         // testArr[i].draw(ctx);
     }
-    console.log(testArr);
-    console.log(backArr);
     intervalId = setInterval(animate, 15)
     // animate();
 }

@@ -5,7 +5,7 @@ html, body {
     padding: none;
     overflow: hidden;
 
-    background: linear-gradient(rgb(183, 238, 255),rgb(184, 172, 255));
+    background: linear-gradient(rgb(167, 198, 248),rgb(166, 151, 249));
     z-index: -1;
 }
 
